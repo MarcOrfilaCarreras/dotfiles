@@ -1,0 +1,13 @@
+[Unit]
+Description=Tailscale IP Update
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=<path-to-the-folder>
+ExecStart=<path-to-the-folder>/script.sh WiFiNetEx 100.89.23.29 192.168.76.89 example.com eth0 192.168.76.222
+
+[Install]
+WantedBy=multi-user.target
