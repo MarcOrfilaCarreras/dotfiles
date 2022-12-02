@@ -1,0 +1,13 @@
+[Unit]
+Description=Tailscale IP Update
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/scripts
+ExecStart=/opt/scripts/tailscale_ip_update.sh 10 100.64.0.4 10.0.0.10 marcorfilacarreras.net enx00e04c68ce10 10.0.0.101/24
+
+[Install]
+WantedBy=multi-user.target
