@@ -19,5 +19,19 @@ Most Pull Requests and Issues will not be considered due to the personal nature 
 
 <br>
 
+## :arrow_right: Getting Started
+### Installation
+First, you need to clone this repository:
+```
+git clone https://github.com/MarcOrfilaCarreras/dotfiles
+```
+
+Then, you will be able to run the script:
+```
+./install.sh -h
+```
+
+<br>
+
 ## :key: License
 Distributed under the MIT License. See `LICENSE` for more information.
