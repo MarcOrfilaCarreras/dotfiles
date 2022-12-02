@@ -1,0 +1,19 @@
+---
+editor: /usr/bin/nano
+
+colorize: false
+
+style: monokai
+
+formatter: terminal256
+
+pager: 
+
+cheatpaths:
+
+  # If you have personalized cheatsheets, list them last. They will take
+  # precedence over the more global cheatsheets.
+  - name: personal
+    path: /opt/configs/cheat/cheatsheets
+    tags: [ personal ]
+    readonly: false
