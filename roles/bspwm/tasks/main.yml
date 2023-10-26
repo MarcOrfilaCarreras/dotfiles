@@ -1,0 +1,8 @@
+---
+- include: install_dependencies.yml
+
+- include: clone_repositories.yml
+
+- include: build_and_install.yml
+
+- include: configure.yml

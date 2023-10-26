@@ -1,0 +1,18 @@
+---
+- name: Clone Polybar repository
+  git:
+    repo: https://github.com/polybar/polybar.git
+    dest: ~/polybar
+  become: true
+
+- name: Clone Picom repository
+  become: true
+  git:
+    repo: https://github.com/ibhagwan/picom.git
+    dest: ~/picom
+
+- name: Clone powerlevel10k for Zsh
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: ~/.powerlevel10k
+    depth: 1

@@ -1,0 +1,156 @@
+---
+- name: Copy .zshrc
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/zsh/.zshrc"
+    dest: "~/.zshrc"
+
+- name: Configure Zsh to use powerlevel10k theme
+  lineinfile:
+    path: ~/.zshrc
+    line: 'source ~/.powerlevel10k/powerlevel10k.zsh-theme'
+
+- name: Configure Rofi theme
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/rofi/nord.rasi"
+    dest: "~/.config/rofi/themes/"
+
+- name: Copy HackNerdFonts
+  become: true
+  copy:
+    src: "{{ playbook_dir }}/config/fonts/HNF/"
+    dest: "/usr/local/share/fonts/"
+
+- name: Install Polybar Fonts
+  become: true
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/polybar/fonts/"
+    dest: "/usr/share/fonts/truetype/"
+
+- name: Create Wallpaper folder
+  file:
+    path: ~/Wallpaper
+    state: directory
+
+- name: Copy Wallpaper
+  copy:
+    src: "{{ playbook_dir }}/config/images/wallpaper.png"
+    dest: "~/Wallpaper/"
+
+- name: Create Screenshots folder
+  file:
+    path: ~/ScreenShots
+    state: directory
+
+- name: Create bspwm folder
+  file:
+    path: ~/.config/bspwm
+    state: directory
+
+- name: Copy bspwm configuration files
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/bspwm/"
+    dest: "~/.config/bspwm"
+
+- name: Create scripts folder
+  file:
+    path: ~/.config/scripts
+    state: directory
+
+- name: Copy bspwm scripts files
+  copy:
+    src: "{{ playbook_dir }}/config/scripts/"
+    dest: "~/.config/scripts"
+
+- name: Create polybar folder
+  file:
+    path: ~/.config/polybar
+    state: directory
+
+- name: Copy bspwm polybar files
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/polybar/"
+    dest: "~/.config/polybar"
+
+- name: Create sxhkd folder
+  file:
+    path: ~/.config/sxhkd
+    state: directory
+
+- name: Copy bspwm sxhkd files
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/sxhkd/"
+    dest: "~/.config/sxhkd"
+
+- name: Create kitty folder
+  file:
+    path: ~/.config/kitty
+    state: directory
+
+- name: Copy bspwm kitty files
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/kitty/"
+    dest: "~/.config/kitty"
+
+- name: Create picom folder
+  file:
+    path: ~/.config/picom
+    state: directory
+
+- name: Copy bspwm picom files
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/picom/"
+    dest: "~/.config/picom"
+
+- name: Copy .p10k.zsh
+  copy:
+    src: "{{ playbook_dir }}/config/bspwm/p10k/.p10k.zsh"
+    dest: "~/.p10k.zsh"
+
+- name: Copy scripts
+  become: true
+  copy:
+    src: "{{ playbook_dir }}/config/scripts/"
+    dest: "/usr/local/bin/"
+    mode: +x
+
+- name: Install Zsh plugins
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
+
+- name: Create Zsh sudo plugin directory
+  become: true
+  file:
+    path: /usr/share/zsh-sudo
+    state: directory
+
+- name: Download zsh-sudo plugin
+  become: true
+  get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+    dest: /usr/share/zsh-sudo/sudo.plugin.zsh
+
+- name: Change the shell to Zsh for the current user
+  become: true
+  user:
+    name: "marc"
+    shell: /usr/bin/zsh
+
+- name: Set permissions for scripts
+  file:
+    path: "{{ item }}"
+    mode: "+x"
+  loop:
+    - "~/.config/bspwm/bspwmrc"
+    - "~/.config/bspwm/scripts/bspwm_resize"
+    - "~/.config/scripts/ethernet_status.sh"
+    - "~/.config/scripts/info_tailscale.sh"
+    - "~/.config/polybar/launch.sh"
+    - "/usr/local/bin/screenshot"
+
+- name: Configure Rofi theme
+  shell: rofi-theme-selector

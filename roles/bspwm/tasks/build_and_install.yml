@@ -1,0 +1,29 @@
+---
+- name: Build and install Polybar
+  shell: |
+    mkdir -p ~/polybar/build
+    cd ~/polybar/build
+    cmake ..
+    make -j$(nproc)
+    sudo make install
+  become: true
+
+- name: Build and install Picom
+  shell: |
+    git -C ~/picom/ submodule update --init --recursive
+    meson --buildtype=release ~/picom/ ~/picom/build
+    ninja -C ~/picom/build
+    ninja -C ~/picom/build install
+  become: true
+
+- name: Download LSD package
+  get_url:
+    url: https://github.com/lsd-rs/lsd/releases/download/v1.0.0/lsd_1.0.0_amd64.deb
+    dest: /tmp/lsd_1.0.0_amd64.deb
+  become: true
+
+- name: Install LSD package
+  apt:
+    deb: /tmp/lsd_1.0.0_amd64.deb
+    state: present
+  become: true
