@@ -137,7 +137,7 @@
 - name: Change the shell to Zsh for the current user
   become: true
   user:
-    name: "marc"
+    name: "{{ username }}"
     shell: /usr/bin/zsh
 
 - name: Set permissions for scripts

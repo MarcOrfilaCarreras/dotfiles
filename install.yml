@@ -1,5 +1,7 @@
 ---
-- hosts: localhost
+- name: Install
+  hosts: localhost
   roles:
     - common
-    - bspwm
+    - role: bspwm
+      username: marc
