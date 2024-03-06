@@ -1,13 +1,4 @@
 ---
-- name: Build and install Polybar
-  shell: |
-    mkdir -p ~/polybar/build
-    cd ~/polybar/build
-    cmake ..
-    make -j$(nproc)
-    sudo make install
-  become: true
-
 - name: Build and install Picom
   shell: |
     git -C ~/picom/ submodule update --init --recursive

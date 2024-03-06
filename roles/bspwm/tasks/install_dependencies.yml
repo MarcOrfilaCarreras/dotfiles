@@ -82,6 +82,12 @@
     - libpcre3
     - libpcre3-dev
 
+- name: Add specified repository into sources list
+  apt_repository:
+    repo: deb https://ppa.launchpadcontent.net/freyes/awesome/ubuntu focal main
+    state: present
+  when: ansible_distribution == "Ubuntu" && ansible_distribution_major_version == "20"
+
 - name: Install additional packages
   become: true
   apt:
@@ -104,3 +110,4 @@
     - imagemagick
     - ranger
     - kitty
+    - polybar
